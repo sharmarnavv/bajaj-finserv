@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import re
+import os
 
 app = Flask(__name__)
 
@@ -36,9 +37,6 @@ def process_data(data_array):
     }
 
 def create_concat_string(alphabets):
-    """
-    Create concatenated string in reverse order with alternating caps
-    """
     if not alphabets:
         return ""
     
@@ -123,7 +121,6 @@ def method_not_allowed(error):
     }), 405
 
 if __name__ == '__main__':
-    print("Starting BFHL API server...")
-    print("API endpoint: http://localhost:5000/bfhl")
-    print("Method: POST")
-    app.run(debug=True, host='0.0.0.0', port=5000)
+    # Use PORT environment variable if available, otherwise default to 5000
+    port = int(os.environ.get('PORT', 5000))
+    app.run(host='0.0.0.0', port=port)
